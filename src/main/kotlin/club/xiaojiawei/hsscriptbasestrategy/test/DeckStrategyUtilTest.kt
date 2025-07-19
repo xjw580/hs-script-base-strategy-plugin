@@ -1,11 +1,11 @@
-package club.xiaojiawei.test
+package club.xiaojiawei.hsscriptbasestrategy.test
 
 import club.xiaojiawei.bean.Card
-import club.xiaojiawei.bean.SimulateWeightCard
+import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateWeightCard
 import club.xiaojiawei.bean.TestCardAction
 import club.xiaojiawei.enums.CardTypeEnum
 import club.xiaojiawei.status.WAR
-import club.xiaojiawei.util.DeckStrategyUtil.calcPowerOrder
+import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil.calcPowerOrder
 
 /**
  * @author 肖嘉威 xjw580@qq.com

@@ -1,4 +1,4 @@
-package club.xiaojiawei.test.ucb
+package club.xiaojiawei.hsscriptbasestrategy.test.ucb
 
 /**
  * @author 肖嘉威

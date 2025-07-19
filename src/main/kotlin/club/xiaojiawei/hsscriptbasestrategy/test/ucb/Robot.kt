@@ -1,4 +1,4 @@
-package club.xiaojiawei.test.ucb
+package club.xiaojiawei.hsscriptbasestrategy.test.ucb
 
 import kotlin.random.Random
 

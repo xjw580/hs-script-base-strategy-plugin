@@ -1,8 +1,8 @@
-package club.xiaojiawei.strategy
+package club.xiaojiawei.hsscriptbasestrategy.strategy
 
 import club.xiaojiawei.DeckStrategy
 import club.xiaojiawei.bean.Card
-import club.xiaojiawei.enums.RunModeEnum
+import club.xiaojiawei.hsscriptbase.enums.RunModeEnum
 
 /**
  * @author 肖嘉威

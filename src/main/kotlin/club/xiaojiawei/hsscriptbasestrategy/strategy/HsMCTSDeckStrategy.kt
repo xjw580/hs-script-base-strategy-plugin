@@ -1,11 +1,11 @@
-package club.xiaojiawei.strategy
+package club.xiaojiawei.hsscriptbasestrategy.strategy
 
 import club.xiaojiawei.bean.Card
 import club.xiaojiawei.bean.DEFAULT_WAR_SCORE_CALCULATOR
 import club.xiaojiawei.bean.MCTSArg
 import club.xiaojiawei.bean.War
 import club.xiaojiawei.deck.MCTSDeckStrategy
-import club.xiaojiawei.enums.RunModeEnum
+import club.xiaojiawei.hsscriptbase.enums.RunModeEnum
 
 /**
  * @author 肖嘉威

@@ -1,4 +1,6 @@
-package club.xiaojiawei.bean
+package club.xiaojiawei.hsscriptbasestrategy.bean
+
+import club.xiaojiawei.bean.Card
 
 /**
  * @author 肖嘉威

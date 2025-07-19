@@ -1,4 +1,4 @@
-package club.xiaojiawei.mctsbuilder
+package club.xiaojiawei.hsscriptbasestrategy.mctsbuilder
 
 import club.xiaojiawei.bean.Card
 import club.xiaojiawei.bean.WarScoreCalculatorBuilder

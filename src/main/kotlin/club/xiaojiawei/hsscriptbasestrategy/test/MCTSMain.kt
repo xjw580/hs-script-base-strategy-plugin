@@ -1,10 +1,10 @@
-package club.xiaojiawei.test
+package club.xiaojiawei.hsscriptbasestrategy.test
 
 import club.xiaojiawei.bean.DEFAULT_WAR_SCORE_CALCULATOR
 import club.xiaojiawei.bean.MCTSArg
 import club.xiaojiawei.mcts.MonteCarloTreeNode
 import club.xiaojiawei.mcts.MonteCarloTreeSearch
-import club.xiaojiawei.util.DeckStrategyUtil.createMCTSWar
+import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil.createMCTSWar
 
 /**
  * @author 肖嘉威

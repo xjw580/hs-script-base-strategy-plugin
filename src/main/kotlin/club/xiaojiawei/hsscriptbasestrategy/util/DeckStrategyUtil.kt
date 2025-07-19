@@ -1,15 +1,19 @@
-package club.xiaojiawei.util
+package club.xiaojiawei.hsscriptbasestrategy.util
 
 import club.xiaojiawei.bean.*
-import club.xiaojiawei.bean.SimulateCard.Companion.TAUNT_EXTRA_WEIGHT
+import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateCard.Companion.TAUNT_EXTRA_WEIGHT
 import club.xiaojiawei.bean.area.PlayArea
-import club.xiaojiawei.config.CALC_THREAD_POOL
-import club.xiaojiawei.config.log
+import club.xiaojiawei.hsscriptbase.config.CALC_THREAD_POOL
+import club.xiaojiawei.hsscriptbase.config.log
 import club.xiaojiawei.data.CARD_INFO_TRIE
 import club.xiaojiawei.data.CARD_WEIGHT_TRIE
 import club.xiaojiawei.enums.CardActionEnum
 import club.xiaojiawei.enums.CardTypeEnum
+import club.xiaojiawei.hsscriptbase.bean.CardWeight
+import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateCard
+import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateWeightCard
 import club.xiaojiawei.status.WAR
+import club.xiaojiawei.util.CardUtil
 import java.util.concurrent.CompletableFuture
 import java.util.function.Function
 import kotlin.math.max

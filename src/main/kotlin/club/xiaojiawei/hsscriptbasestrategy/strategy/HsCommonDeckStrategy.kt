@@ -1,14 +1,12 @@
-package club.xiaojiawei.strategy
+package club.xiaojiawei.hsscriptbasestrategy.strategy
 
 import club.xiaojiawei.DeckStrategy
 import club.xiaojiawei.bean.Card
 import club.xiaojiawei.data.BaseData
 import club.xiaojiawei.data.CARD_INFO_TRIE
-import club.xiaojiawei.enums.CardActionEnum
-import club.xiaojiawei.enums.RunModeEnum
+import club.xiaojiawei.hsscriptbase.enums.RunModeEnum
 import club.xiaojiawei.status.WAR
-import club.xiaojiawei.util.DeckStrategyUtil
-import club.xiaojiawei.util.randomSelectOrNull
+import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil
 
 /**
  * @author 肖嘉威
