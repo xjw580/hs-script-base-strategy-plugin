@@ -7,7 +7,6 @@
         <groupId>club.xiaojiawei</groupId>
         <artifactId>hs-script</artifactId>
         <version>1.0.0</version>
-        <relativePath>../Hearthstone-Script/pom.xml</relativePath>
     </parent>
 
     <artifactId>hs-script-base-strategy</artifactId>
