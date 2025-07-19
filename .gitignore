@@ -43,7 +43,6 @@ config.json
 /plugin
 /log
 /resource
-**/config
 *.db-journal
 .pid
 /data
