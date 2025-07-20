@@ -22,7 +22,13 @@ class HsBaseStrategyPlugin : StrategyPlugin {
 
     override fun homeUrl(): String = "https://github.com/xjw580/Hearthstone-Script"
 
-    override fun cardSDKVersion(): String? = VersionInfo.CARD_SDK_VERSION_USED
+    /**
+     * 使用的卡牌SDK版本
+     */
+    override fun cardSDKVersion(): String? = if (VersionInfo.CARD_SDK_VERSION_USED.endsWith("}")) null else VersionInfo.CARD_SDK_VERSION_USED
 
-    override fun strategySDKVersion(): String? = VersionInfo.STRATEGY_SDK_VERSION_USED
+    /**
+     * 使用的策略SDK版本
+     */
+    override fun strategySDKVersion(): String? = if (VersionInfo.STRATEGY_SDK_VERSION_USED.endsWith("}")) null else VersionInfo.STRATEGY_SDK_VERSION_USED
 }
