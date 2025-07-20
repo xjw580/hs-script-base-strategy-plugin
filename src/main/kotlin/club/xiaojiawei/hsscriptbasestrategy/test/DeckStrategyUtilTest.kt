@@ -1,10 +1,10 @@
 package club.xiaojiawei.hsscriptbasestrategy.test
 
-import club.xiaojiawei.bean.Card
+import club.xiaojiawei.hsscriptcardsdk.bean.Card
 import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateWeightCard
-import club.xiaojiawei.bean.TestCardAction
-import club.xiaojiawei.enums.CardTypeEnum
-import club.xiaojiawei.status.WAR
+import club.xiaojiawei.hsscriptcardsdk.bean.TestCardAction
+import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
+import club.xiaojiawei.hsscriptcardsdk.status.WAR
 import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil.calcPowerOrder
 
 /**

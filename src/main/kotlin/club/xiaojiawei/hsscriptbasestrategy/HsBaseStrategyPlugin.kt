@@ -1,6 +1,6 @@
 package club.xiaojiawei.hsscriptbasestrategy
 
-import club.xiaojiawei.StrategyPlugin
+import club.xiaojiawei.hsscriptstrategysdk.StrategyPlugin
 
 /**
  * @author 肖嘉威
@@ -22,6 +22,7 @@ class HsBaseStrategyPlugin : StrategyPlugin {
 
     override fun homeUrl(): String = "https://github.com/xjw580/Hearthstone-Script"
 
-    override fun sdkVersion(): String = VersionInfo.SDK_VERSION
+    override fun cardSDKVersion(): String? = VersionInfo.CARD_SDK_VERSION_USED
 
+    override fun strategySDKVersion(): String? = VersionInfo.STRATEGY_SDK_VERSION_USED
 }

@@ -9,16 +9,19 @@
         <version>v4.8.0.1</version>
     </parent>
 
+    <groupId>com.github.xjw580</groupId>
     <artifactId>hs-script-base-strategy</artifactId>
     <version>1.0.0</version>
 
-    <name>Hearthstone-Script-Base-Strategy</name>
+    <name>hs-script-base-strategy</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+
+        <strategy-sdk-version>${hs-script-strategy-sdk-version}</strategy-sdk-version>
     </properties>
 
     <build>
@@ -47,7 +50,8 @@
                             <outputDirectory>${project.build.directory}/generated-sources/version</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>src/main/resources-filtered/club/xiaojiawei/hsscriptbasestrategy</directory>
+                                    <directory>src/main/resources-filtered/club/xiaojiawei/hsscriptbasestrategy
+                                    </directory>
                                     <includes>
                                         <include>VersionInfo.java</include>
                                     </includes>
@@ -64,8 +68,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>club.xiaojiawei</groupId>
+            <groupId>com.github.xjw580</groupId>
             <artifactId>hs-script-strategy-sdk</artifactId>
+            <version>${strategy-sdk-version}</version>
         </dependency>
     </dependencies>
 

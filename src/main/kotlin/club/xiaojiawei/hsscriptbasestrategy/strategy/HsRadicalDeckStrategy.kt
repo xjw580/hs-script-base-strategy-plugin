@@ -1,13 +1,13 @@
 package club.xiaojiawei.hsscriptbasestrategy.strategy
 
-import club.xiaojiawei.DeckStrategy
-import club.xiaojiawei.bean.Card
-import club.xiaojiawei.bean.isValid
+import club.xiaojiawei.hsscriptstrategysdk.DeckStrategy
+import club.xiaojiawei.hsscriptcardsdk.bean.Card
+import club.xiaojiawei.hsscriptcardsdk.bean.isValid
 import club.xiaojiawei.hsscriptbase.config.log
-import club.xiaojiawei.data.CARD_INFO_TRIE
-import club.xiaojiawei.enums.CardTypeEnum
+import club.xiaojiawei.hsscriptcardsdk.data.CARD_INFO_TRIE
+import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
 import club.xiaojiawei.hsscriptbase.enums.RunModeEnum
-import club.xiaojiawei.status.WAR
+import club.xiaojiawei.hsscriptcardsdk.status.WAR
 import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil
 
 /**

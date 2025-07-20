@@ -1,8 +1,8 @@
 package club.xiaojiawei.hsscriptbasestrategy.bean
 
-import club.xiaojiawei.bean.Card
-import club.xiaojiawei.bean.CardInfo
-import club.xiaojiawei.enums.CardTypeEnum
+import club.xiaojiawei.hsscriptcardsdk.bean.Card
+import club.xiaojiawei.hsscriptcardsdk.bean.CardInfo
+import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
 import kotlin.math.max
 
 /**

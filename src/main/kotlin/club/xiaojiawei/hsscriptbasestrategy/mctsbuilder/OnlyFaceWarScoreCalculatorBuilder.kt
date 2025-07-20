@@ -1,8 +1,8 @@
 package club.xiaojiawei.hsscriptbasestrategy.mctsbuilder
 
-import club.xiaojiawei.bean.Card
-import club.xiaojiawei.bean.WarScoreCalculatorBuilder
-import club.xiaojiawei.enums.CardTypeEnum
+import club.xiaojiawei.hsscriptcardsdk.bean.Card
+import club.xiaojiawei.hsscriptcardsdk.bean.WarScoreCalculatorBuilder
+import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
 
 /**
  * @author 肖嘉威

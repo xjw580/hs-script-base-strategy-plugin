@@ -1,8 +1,8 @@
 package club.xiaojiawei.util
 
-import club.xiaojiawei.bean.Card
-import club.xiaojiawei.bean.TEST_CARD_ACTION
-import club.xiaojiawei.enums.CardTypeEnum
+import club.xiaojiawei.hsscriptcardsdk.bean.Card
+import club.xiaojiawei.hsscriptcardsdk.bean.TEST_CARD_ACTION
+import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
 import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil
 import org.junit.jupiter.api.Disabled
 import kotlin.test.Test

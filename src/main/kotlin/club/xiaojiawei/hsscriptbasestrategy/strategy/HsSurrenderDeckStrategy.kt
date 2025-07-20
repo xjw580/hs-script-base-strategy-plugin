@@ -1,7 +1,7 @@
 package club.xiaojiawei.hsscriptbasestrategy.strategy
 
-import club.xiaojiawei.DeckStrategy
-import club.xiaojiawei.bean.Card
+import club.xiaojiawei.hsscriptstrategysdk.DeckStrategy
+import club.xiaojiawei.hsscriptcardsdk.bean.Card
 import club.xiaojiawei.hsscriptbase.enums.RunModeEnum
 
 /**
