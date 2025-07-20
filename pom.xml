@@ -21,6 +21,9 @@
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
 
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+
         <strategy-sdk-version>${hs-script-strategy-sdk-version}</strategy-sdk-version>
     </properties>
 
