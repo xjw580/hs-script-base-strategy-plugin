@@ -39,6 +39,7 @@
     </properties>
 
     <build>
+        <finalName>${artifactId}</finalName>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <resources>
             <resource>
