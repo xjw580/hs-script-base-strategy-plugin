@@ -44,47 +44,35 @@ class HsRadicalDeckStrategy : DeckStrategy() {
         val me = WAR.me
         if (me.isValid()) {
             val rival = WAR.rival
-            var plays = me.playArea.cards.toList()
-            DeckStrategyUtil.activeLocation(plays)
-            val hands = me.handArea.cards.toList()
-            val myHandCardsCopy = hands.toMutableList()
-            myHandCardsCopy.removeAll { card -> card.isCoinCard }
-            // 不算硬币牌，计算本回合资源情况下的最优出牌。
-            val (score, resultCards) = DeckStrategyUtil.calcPowerOrderConvert(myHandCardsCopy, me.usableResource)
-             // 判断是否存在硬币
-            val coinCard = DeckStrategyUtil.findCoin(hands)
-            var finalCards = resultCards
-            if (coinCard != null) {
-                // 使用硬币后资源+1，再计算一次最优出牌。
-                val (coinScore, coinResultCards) = DeckStrategyUtil.calcPowerOrderConvert(myHandCardsCopy, me.usableResource + 1)
-                if (coinScore > score) {
-                    // 若使用硬币后得分更高，则先打出硬币
-                    coinCard.action.power()
-                    Thread.sleep(1000)
-                    finalCards = coinResultCards
-                }
-            }
 
-            if (finalCards.isNotEmpty()) {
-                DeckStrategyUtil.updateTextForCard(finalCards)
-                val sortCard = DeckStrategyUtil.sortCardByPowerWeight(finalCards)
-                log.info { "待出牌：$sortCard" }
-                for (simulateWeightCard in sortCard) {
-                    val card = simulateWeightCard.card
-                    val cardText = simulateWeightCard.text
-                    if (me.usableResource >= card.cost) {
-                        if (card.cardType === CardTypeEnum.SPELL || card.cardType === CardTypeEnum.HERO) {
-                            card.action.autoPower(CARD_INFO_TRIE[card.cardId])
-                        } else {
-                            if (me.playArea.isFull) break
-                            card.action.autoPower(CARD_INFO_TRIE[card.cardId])
-                        }
+            DeckStrategyUtil.RadicalpowerCard(me, rival)
+            DeckStrategyUtil.cleanPlay()
+
+            DeckStrategyUtil.RadicalpowerCard(me, rival)
+            DeckStrategyUtil.cleanPlay()
+
+            DeckStrategyUtil.RadicalpowerCard(me, rival)
+            DeckStrategyUtil.cleanPlay()
+
+            DeckStrategyUtil.RadicalpowerCard(me, rival)
+
+    //        使用技能
+            me.playArea.power?.let { powerCard ->
+                if (me.usableResource >= powerCard.cost || powerCard.cost == 0) {
+                    CARD_INFO_TRIE[powerCard.cardId]?.let { cardInfo ->
+                        cardInfo.powerActions.firstOrNull()?.powerExec(powerCard, cardInfo.effectType, WAR)
+                    } ?: let {
+                        powerCard.action.power()
                     }
                 }
             }
-            plays = me.playArea.cards.toList()
-            DeckStrategyUtil.activeLocation(plays)
-            commonDeckStrategy.executeOutCard()
+            DeckStrategyUtil.cleanPlay()
+
+            me.playArea.cards.toList().forEach { card: Card ->
+                if (card.isLaunchpad && me.usableResource >= card.launchCost()) {
+                    card.action.launch()
+                }
+            }
         }
     }
 
