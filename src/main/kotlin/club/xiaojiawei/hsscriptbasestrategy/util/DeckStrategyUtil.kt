@@ -804,6 +804,40 @@ object DeckStrategyUtil {
         outCard(resultCards)
     }
 
+    fun RadicalpowerCard(
+        me: Player,
+        rival: Player,
+    ) {
+        assign()
+        var plays = me.playArea.cards.toList()
+        activeLocation(plays)
+        val myHandCards = me.handArea.cards.toList()
+        val myHandCardsCopy = myHandCards.toMutableList()
+        myHandCardsCopy.removeAll { card -> card.isCoinCard }
+
+        val (score, resultCards) =
+            calcPowerOrderConvert(
+                myHandCardsCopy,
+                me.usableResource,
+            )
+
+        val coinCard = findCoin(myHandCards)
+        if (coinCard != null) {
+            val (coinScore, coinResultCards) =
+                calcPowerOrderConvert(
+                    myHandCardsCopy,
+                    me.usableResource + 1,
+                )
+            if (coinScore > score) {
+                coinCard.action.power()
+                Thread.sleep(1000)
+                outCard(coinResultCards)
+                return
+            }
+        }
+        outCard(resultCards)
+    }
+    
     /**
      * 使用手牌
      */
@@ -817,7 +851,7 @@ object DeckStrategyUtil {
                 val card = simulateWeightCard.card
                 val cardType = card.cardType
                 if (me.usableResource >= card.cost) {
-                    if (cardType === CardTypeEnum.SPELL || cardType === CardTypeEnum.HERO) {
+                    if (cardType === CardTypeEnum.SPELL || cardType === CardTypeEnum.HERO || (cardType == CardTypeEnum.WEAPON && me.playArea.weapon == null)) {
                         card.action.autoPower(CARD_INFO_TRIE[card.cardId])
                     } else {
                         if (me.playArea.isFull) break
