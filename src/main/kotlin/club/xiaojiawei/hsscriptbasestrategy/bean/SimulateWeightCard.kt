@@ -14,6 +14,6 @@ class SimulateWeightCard(
     var text: String = ""
 ) {
     override fun toString(): String {
-        return "【entityId:${card.entityId}，entityName:${card.entityName}，cardId:${card.cardId}，weight：${weight}，text：${text}】"
+        return "【entityId:${card.entityId},entityName:${card.entityName},cardId:${card.cardId},weight:${weight},powerWeight:${powerWeight}】"
     }
 }

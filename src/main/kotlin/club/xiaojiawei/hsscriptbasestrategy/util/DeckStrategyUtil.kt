@@ -1,21 +1,18 @@
 package club.xiaojiawei.hsscriptbasestrategy.util
 
-import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateCard.Companion.TAUNT_EXTRA_WEIGHT
-import club.xiaojiawei.hsscriptcardsdk.bean.area.PlayArea
 import club.xiaojiawei.hsscriptbase.config.CALC_THREAD_POOL
 import club.xiaojiawei.hsscriptbase.config.log
-import club.xiaojiawei.hsscriptcardsdk.data.CARD_INFO_TRIE
-import club.xiaojiawei.hsscriptcardsdk.data.CARD_WEIGHT_TRIE
+import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateCard
+import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateCard.Companion.TAUNT_EXTRA_WEIGHT
+import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateWeightCard
+import club.xiaojiawei.hsscriptcardsdk.bean.*
+import club.xiaojiawei.hsscriptcardsdk.bean.area.PlayArea
+import club.xiaojiawei.hsscriptcardsdk.cardparser.CardDescriptionParser
+import club.xiaojiawei.hsscriptcardsdk.data.CARD_DATA_TRIE
 import club.xiaojiawei.hsscriptcardsdk.enums.CardActionEnum
 import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
-import club.xiaojiawei.hsscriptbase.bean.CardWeight
-import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateCard
-import club.xiaojiawei.hsscriptbasestrategy.bean.SimulateWeightCard
-import club.xiaojiawei.hsscriptcardsdk.bean.Card
-import club.xiaojiawei.hsscriptcardsdk.bean.Player
-import club.xiaojiawei.hsscriptcardsdk.bean.TestCardAction
-import club.xiaojiawei.hsscriptcardsdk.bean.War
 import club.xiaojiawei.hsscriptcardsdk.status.WAR
+import club.xiaojiawei.hsscriptcardsdk.util.CardDBUtil
 import club.xiaojiawei.hsscriptcardsdk.util.CardUtil
 import java.util.concurrent.CompletableFuture
 import java.util.function.Function
@@ -64,8 +61,7 @@ object DeckStrategyUtil {
     )
 
     private class Result(
-        @Volatile
-        var allWeight: Double = Int.MIN_VALUE.toDouble(),
+        @Volatile var allWeight: Double = Int.MIN_VALUE.toDouble(),
     ) {
         private var actions: List<Action> = emptyList()
 
@@ -76,9 +72,6 @@ object DeckStrategyUtil {
         fun execAction(): Int {
             val text = "权重: $allWeight, 步骤↓"
             log.info { text }
-            if (!execAction) {
-                println(text)
-            }
             var deathCount = 0
             for (action in actions) {
                 deathCount += if (action.deathCard == null) 0 else 1
@@ -98,7 +91,7 @@ object DeckStrategyUtil {
             rivalCards: List<SimulateCard>?,
         ) {
             if (newWeight >= allWeight) {
-                synchronized(DeckStrategyUtil::javaClass) {
+                synchronized(DeckStrategyUtil.javaClass) {
                     if (newWeight >= allWeight) {
                         allWeight = newWeight
                         actions = newActions.toList()
@@ -135,7 +128,7 @@ object DeckStrategyUtil {
     ) {
         val myCardWeightCalc: Function<Card, Double> =
             Function {
-                var value = CARD_WEIGHT_TRIE[it.cardId]?.weight ?: 1.0
+                var value = CARD_DATA_TRIE[it.cardId]?.weight ?: 1.0
                 if (it.isDeathRattle) {
                     value -= 0.3
                 }
@@ -237,9 +230,6 @@ object DeckStrategyUtil {
                 )
             text = "开始思考清理嘲讽"
             log.info { text }
-            if (!execAction) {
-                println(text)
-            }
             val result = calcClean(myCards, rivalCards, true)
             val deathCount = result.execAction()
             if (deathCount < findTauntCardCount) {
@@ -289,9 +279,6 @@ object DeckStrategyUtil {
             )
         text = "开始思考清理万物"
         log.info { text }
-        if (!execAction) {
-            println(text)
-        }
         if (firstMyCards == null) {
             calcClean(myNormalCards, rivalNormalCards).execAction()
         } else {
@@ -318,7 +305,7 @@ object DeckStrategyUtil {
                 val simulateCard =
                     SimulateCard(
                         card = myPlayCard,
-                        CARD_INFO_TRIE[myPlayCard.cardId],
+                        CARD_DATA_TRIE[myPlayCard.cardId],
                         attackCount = myAttackCountCalc.apply(myPlayCard),
                         inversionAttackCount = myInversionAttackCountCalc.apply(myPlayCard),
                         atcWeight = myAtcWeightCalc.apply(myPlayCard),
@@ -343,7 +330,7 @@ object DeckStrategyUtil {
             val simulateCard =
                 SimulateCard(
                     card = rivalCard,
-                    CARD_INFO_TRIE[rivalCard.cardId],
+                    CARD_DATA_TRIE[rivalCard.cardId],
                     attackCount = rivalAttackCountCalc.apply(rivalCard),
                     inversionAttackCount = rivalInversionAttackCountCalc.apply(rivalCard),
                     atcWeight = rivalAtcWeightCalc.apply(rivalCard),
@@ -380,9 +367,6 @@ object DeckStrategyUtil {
                 "启用反演"
             }
         log.info { text }
-        if (!execAction) {
-            println(text)
-        }
         for (index in myCards.indices) {
             if (myCards[0].canAttack(false)) {
                 val tempMyCards = SimulateCard.copySimulateList(myCards)
@@ -426,9 +410,6 @@ object DeckStrategyUtil {
         CompletableFuture.allOf(*task.toTypedArray()).get()
         text = "思考耗时：" + (System.currentTimeMillis() - start) + "ms"
         log.info { text }
-        if (!execAction) {
-            println(text)
-        }
         return finalResult
     }
 
@@ -742,7 +723,7 @@ object DeckStrategyUtil {
     fun convertToSimulateWeightCard(cards: List<Card>): List<SimulateWeightCard> {
         val result = mutableListOf<SimulateWeightCard>()
         for (card in cards) {
-            result.add(SimulateWeightCard(card, CARD_WEIGHT_TRIE[card.cardId]?.weight ?: 1.0))
+            result.add(SimulateWeightCard(card, CARD_DATA_TRIE[card.cardId]?.weight ?: 1.0))
         }
         return result
     }
@@ -752,7 +733,7 @@ object DeckStrategyUtil {
      */
     fun sortCardByPowerWeight(cards: List<SimulateWeightCard>): List<SimulateWeightCard> {
         cards.forEach { t ->
-            t.powerWeight = CARD_WEIGHT_TRIE[t.card.cardId]?.powerWeight ?: 1.0
+            t.powerWeight = CARD_DATA_TRIE[t.card.cardId]?.powerWeight ?: 1.0
         }
         return cards.sortedByDescending { it.powerWeight }
     }
@@ -818,10 +799,10 @@ object DeckStrategyUtil {
                 val cardType = card.cardType
                 if (me.usableResource >= card.cost) {
                     if (cardType === CardTypeEnum.SPELL || cardType === CardTypeEnum.HERO) {
-                        card.action.autoPower(CARD_INFO_TRIE[card.cardId])
+                        card.action.autoPower(CARD_DATA_TRIE[card.cardId])
                     } else {
                         if (me.playArea.isFull) break
-                        card.action.autoPower(CARD_INFO_TRIE[card.cardId])
+                        card.action.autoPower(CARD_DATA_TRIE[card.cardId])
                     }
                 }
             }
@@ -839,7 +820,7 @@ object DeckStrategyUtil {
     fun activeLocation(cards: List<Card>) {
         cards.forEach { card ->
             if (card.cardType === CardTypeEnum.LOCATION && !card.isLocationActionCooldown) {
-                CARD_INFO_TRIE[card.cardId]?.let {
+                CARD_DATA_TRIE[card.cardId]?.let {
                     it.powerActions.firstOrNull()?.powerExec(card, it.effectType, WAR)
                 } ?: let {
                     card.action.lClick()
@@ -980,10 +961,39 @@ object DeckStrategyUtil {
         val res = mutableListOf<SimulateWeightCard>()
         for (card in cards) {
             val cardWeight =
-                CARD_WEIGHT_TRIE.getOrDefault(card.cardId) { CardWeight(1.0, 1.0, if (card.cost > 2) -1.0 else 0.0) }
+                CARD_DATA_TRIE.getOrDefault(card.cardId) {
+                    CardInfo().apply {
+                        weight = 1.0; powerWeight = 1.0; changeWeight = if (card.cost > 2) -1.0 else 0.0
+                    }
+                }
             res.add(SimulateWeightCard(card, cardWeight.weight, cardWeight.powerWeight, cardWeight.changeWeight))
         }
         return res
     }
 
+    private val cardParser = CardDescriptionParser()
+
+    fun parseCard(cardId: String): List<CardActionEnum> {
+        if (cardId.isBlank()) return emptyList()
+        CARD_DATA_TRIE.getNoDefault(cardId) ?: let {
+            CardDBUtil.queryCardById(cardId).firstOrNull()?.let {
+                val cardActions = cardParser.parse(it)
+                log.info {
+                    """
+                        解析卡牌【${it.name}】
+                        cardId：${cardId}
+                        描述：${it.text.replace("\n", "")}
+                        行为：${cardActions}
+                    """.trimIndent()
+                }
+                val cardInfo = CardInfo(powerActions = cardActions, playActions = listOf(CardActionEnum.POINT_WHATEVER))
+                CARD_DATA_TRIE[cardId] = cardInfo
+//                if (CARD_DATA_TRIE[cardId] !== cardInfo){
+//                    log.error { "cardId:${cardId} 存取不一致" }
+//                }
+                return cardActions
+            }
+        }
+        return emptyList()
+    }
 }

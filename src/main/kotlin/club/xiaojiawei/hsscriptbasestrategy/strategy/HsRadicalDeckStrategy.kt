@@ -4,7 +4,7 @@ import club.xiaojiawei.hsscriptstrategysdk.DeckStrategy
 import club.xiaojiawei.hsscriptcardsdk.bean.Card
 import club.xiaojiawei.hsscriptcardsdk.bean.isValid
 import club.xiaojiawei.hsscriptbase.config.log
-import club.xiaojiawei.hsscriptcardsdk.data.CARD_INFO_TRIE
+import club.xiaojiawei.hsscriptcardsdk.data.CARD_DATA_TRIE
 import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
 import club.xiaojiawei.hsscriptbase.enums.RunModeEnum
 import club.xiaojiawei.hsscriptcardsdk.status.WAR
@@ -36,7 +36,7 @@ class HsRadicalDeckStrategy : DeckStrategy() {
 
     override fun referCardInfo(): Boolean = true
 
-    override fun executeChangeCard(cards: HashSet<Card>) {
+    override fun executeChangeCard(cards: java.util.HashSet<Card>) {
         commonDeckStrategy.executeChangeCard(cards)
     }
 
@@ -74,10 +74,10 @@ class HsRadicalDeckStrategy : DeckStrategy() {
                     val cardText = simulateWeightCard.text
                     if (me.usableResource >= card.cost) {
                         if (card.cardType === CardTypeEnum.SPELL || card.cardType === CardTypeEnum.HERO) {
-                            card.action.autoPower(CARD_INFO_TRIE[card.cardId])
+                            card.action.autoPower(CARD_DATA_TRIE[card.cardId])
                         } else {
                             if (me.playArea.isFull) break
-                            card.action.autoPower(CARD_INFO_TRIE[card.cardId])
+                            card.action.autoPower(CARD_DATA_TRIE[card.cardId])
                         }
                     }
                 }

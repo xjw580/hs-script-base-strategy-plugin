@@ -3,7 +3,7 @@ package club.xiaojiawei.hsscriptbasestrategy.strategy
 import club.xiaojiawei.hsscriptstrategysdk.DeckStrategy
 import club.xiaojiawei.hsscriptcardsdk.bean.Card
 import club.xiaojiawei.hsscriptcardsdk.data.BaseData
-import club.xiaojiawei.hsscriptcardsdk.data.CARD_INFO_TRIE
+import club.xiaojiawei.hsscriptcardsdk.data.CARD_DATA_TRIE
 import club.xiaojiawei.hsscriptbase.enums.RunModeEnum
 import club.xiaojiawei.hsscriptcardsdk.status.WAR
 import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil
@@ -32,7 +32,7 @@ class HsCommonDeckStrategy : DeckStrategy() {
 
     override fun referCardInfo(): Boolean = true
 
-    override fun executeChangeCard(cards: HashSet<Card>) {
+    override fun executeChangeCard(cards: java.util.HashSet<Card>) {
         if (BaseData.enableChangeWeight) {
             val weightCards = DeckStrategyUtil.convertToSimulateCard(cards.toList())
             for (card in weightCards) {
@@ -58,7 +58,7 @@ class HsCommonDeckStrategy : DeckStrategy() {
 //        使用技能
         me.playArea.power?.let { powerCard ->
             if (me.usableResource >= powerCard.cost || powerCard.cost == 0) {
-                CARD_INFO_TRIE[powerCard.cardId]?.let { cardInfo ->
+                CARD_DATA_TRIE.getNoDefault(powerCard.cardId)?.let { cardInfo ->
                     cardInfo.powerActions.firstOrNull()?.powerExec(powerCard, cardInfo.effectType, WAR)
                 } ?: let {
                     powerCard.action.power()

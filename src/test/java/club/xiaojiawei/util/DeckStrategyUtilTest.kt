@@ -1,11 +1,13 @@
 package club.xiaojiawei.util
 
+import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil
 import club.xiaojiawei.hsscriptcardsdk.bean.Card
 import club.xiaojiawei.hsscriptcardsdk.bean.TEST_CARD_ACTION
+import club.xiaojiawei.hsscriptcardsdk.enums.CardActionEnum
 import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
-import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil
-import org.junit.jupiter.api.Disabled
+import kotlin.test.Ignore
 import kotlin.test.Test
+import kotlin.test.assertTrue
 
 /**
  * @author 肖嘉威
@@ -25,12 +27,44 @@ class DeckStrategyUtilTest {
         }
     }
 
+    @Test
+    @Ignore
+    fun testCleanPlay() {
+        DeckStrategyUtil.execAction = false
+        val myCards = mutableListOf<Card>(
+            Card(TEST_CARD_ACTION).apply {
+                cardType = CardTypeEnum.MINION
+                entityId = "m3"
+                atc = 3
+                health = 5
+                isTaunt = true
+            },
+            Card(TEST_CARD_ACTION).apply {
+                cardType = CardTypeEnum.MINION
+                entityId = "m4"
+                atc = 2
+                health = 10
+            },
+        )
+        val rivalCards = mutableListOf<Card>(
+            Card(TEST_CARD_ACTION).apply {
+                cardType = CardTypeEnum.HERO
+                entityId = "rh1"
+                atc = 0
+                health = 28
+            },
+        )
+        DeckStrategyUtil.cleanPlay(myPlayCards = myCards, rivalPlayCards = rivalCards)
+        DeckStrategyUtil.execAction = true
+    }
+
+
 
     /**
      * 测试剧毒随从的解场倾向
      */
     @Test
-    @Disabled("这个测试无法验证结果")
+    @Ignore("这个测试无法验证结果")
     fun testPoisonousCleanPlay() {
         DeckStrategyUtil.execAction = false
         val myCards = mutableListOf<Card>(
@@ -103,6 +137,19 @@ class DeckStrategyUtilTest {
         )
         DeckStrategyUtil.cleanPlay(myPlayCards = myCards, rivalPlayCards = rivalCards)
         DeckStrategyUtil.execAction = true
+    }
+
+    @Test
+    fun testParse() {
+//        assertTrue("【奉献】卡牌描述解析出错") { DeckStrategyUtil.parseCard("CORE_CS2_093") == listOf(CardActionEnum.NO_POINT) }
+//        assertTrue("【火球术】卡牌描述解析出错") { DeckStrategyUtil.parseCard("CORE_CS2_029") == listOf(CardActionEnum.POINT_RIVAL) }
+//        assertTrue("【海盗火炮2】卡牌描述解析出错") { DeckStrategyUtil.parseCard("LETL_813_01") == listOf(CardActionEnum.POINT_RIVAL) }
+//        assertTrue("【安戈洛宣传单】卡牌描述解析出错") { DeckStrategyUtil.parseCard("WORK_050") == listOf(CardActionEnum.NO_POINT) }
+//        assertTrue("【强光护卫】卡牌描述解析出错") { DeckStrategyUtil.parseCard("TIME_015") == listOf(CardActionEnum.POINT_MY_HERO) }
+//        assertTrue("【工匠光环】卡牌描述解析出错") { DeckStrategyUtil.parseCard("TOY_808") == listOf(CardActionEnum.NO_POINT) }
+//        assertTrue("【嘉沃顿的故事】卡牌描述解析出错") { DeckStrategyUtil.parseCard("TLC_444") == listOf(CardActionEnum.POINT_MY_MINION) }
+//        assertTrue("【淹没的地图】卡牌描述解析出错") { DeckStrategyUtil.parseCard("TLC_442") == listOf(CardActionEnum.NO_POINT) }
+        assertTrue("【污手街供货商】卡牌描述解析出错") { DeckStrategyUtil.parseCard("CORE_CFM_753") == listOf(CardActionEnum.NO_POINT) }
     }
 
 }
