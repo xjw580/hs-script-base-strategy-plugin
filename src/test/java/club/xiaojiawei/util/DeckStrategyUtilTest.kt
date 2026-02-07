@@ -3,6 +3,7 @@ package club.xiaojiawei.util
 import club.xiaojiawei.hsscriptbasestrategy.util.DeckStrategyUtil
 import club.xiaojiawei.hsscriptcardsdk.bean.Card
 import club.xiaojiawei.hsscriptcardsdk.bean.TEST_CARD_ACTION
+import club.xiaojiawei.hsscriptcardsdk.data.CardInfoData
 import club.xiaojiawei.hsscriptcardsdk.enums.CardActionEnum
 import club.xiaojiawei.hsscriptcardsdk.enums.CardTypeEnum
 import kotlin.test.Ignore
@@ -137,19 +138,6 @@ class DeckStrategyUtilTest {
         )
         DeckStrategyUtil.cleanPlay(myPlayCards = myCards, rivalPlayCards = rivalCards)
         DeckStrategyUtil.execAction = true
-    }
-
-    @Test
-    fun testParse() {
-//        assertTrue("【奉献】卡牌描述解析出错") { DeckStrategyUtil.parseCard("CORE_CS2_093") == listOf(CardActionEnum.NO_POINT) }
-//        assertTrue("【火球术】卡牌描述解析出错") { DeckStrategyUtil.parseCard("CORE_CS2_029") == listOf(CardActionEnum.POINT_RIVAL) }
-//        assertTrue("【海盗火炮2】卡牌描述解析出错") { DeckStrategyUtil.parseCard("LETL_813_01") == listOf(CardActionEnum.POINT_RIVAL) }
-//        assertTrue("【安戈洛宣传单】卡牌描述解析出错") { DeckStrategyUtil.parseCard("WORK_050") == listOf(CardActionEnum.NO_POINT) }
-//        assertTrue("【强光护卫】卡牌描述解析出错") { DeckStrategyUtil.parseCard("TIME_015") == listOf(CardActionEnum.POINT_MY_HERO) }
-//        assertTrue("【工匠光环】卡牌描述解析出错") { DeckStrategyUtil.parseCard("TOY_808") == listOf(CardActionEnum.NO_POINT) }
-//        assertTrue("【嘉沃顿的故事】卡牌描述解析出错") { DeckStrategyUtil.parseCard("TLC_444") == listOf(CardActionEnum.POINT_MY_MINION) }
-//        assertTrue("【淹没的地图】卡牌描述解析出错") { DeckStrategyUtil.parseCard("TLC_442") == listOf(CardActionEnum.NO_POINT) }
-        assertTrue("【污手街供货商】卡牌描述解析出错") { DeckStrategyUtil.parseCard("CORE_CFM_753") == listOf(CardActionEnum.NO_POINT) }
     }
 
 }

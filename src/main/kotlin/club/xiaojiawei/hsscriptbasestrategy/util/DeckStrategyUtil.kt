@@ -970,30 +970,4 @@ object DeckStrategyUtil {
         }
         return res
     }
-
-    private val cardParser = CardDescriptionParser()
-
-    fun parseCard(cardId: String): List<CardActionEnum> {
-        if (cardId.isBlank()) return emptyList()
-        CARD_DATA_TRIE.getNoDefault(cardId) ?: let {
-            CardDBUtil.queryCardById(cardId).firstOrNull()?.let {
-                val cardActions = cardParser.parse(it)
-                log.info {
-                    """
-                        解析卡牌【${it.name}】
-                        cardId：${cardId}
-                        描述：${it.text.replace("\n", "")}
-                        行为：${cardActions}
-                    """.trimIndent()
-                }
-                val cardInfo = CardInfo(powerActions = cardActions, playActions = listOf(CardActionEnum.POINT_WHATEVER))
-                CARD_DATA_TRIE[cardId] = cardInfo
-//                if (CARD_DATA_TRIE[cardId] !== cardInfo){
-//                    log.error { "cardId:${cardId} 存取不一致" }
-//                }
-                return cardActions
-            }
-        }
-        return emptyList()
-    }
 }
