@@ -225,9 +225,56 @@ class HsAiDeckStrategy : DeckStrategy() {
                     }
                 }
             }
-            log.warn { "无法加载激进策略($fallbackId)，本回合空过" }
+            log.warn { "无法加载激进策略($fallbackId)，使用简易兜底" }
+            simpleFallback(me, rival)
         } catch (e: Exception) {
-            log.error { "激进策略兜底异常: ${e.message}" }
+            log.error { "激进策略兜底异常: ${e.message ?: e.javaClass.simpleName}" }
+            simpleFallback(me, rival)
+        }
+    }
+
+    private fun simpleFallback(me: Player, rival: Player) {
+        try {
+            log.info { "简易兜底开始" }
+            val hand = me.handArea.cards.toList().sortedBy { it.cost }
+            for (card in hand) {
+                if (me.usableResource < card.cost) continue
+                try {
+                    if (card.action.power() != null) {
+                        log.info { "兜底出牌: ${card.entityName}(${card.cost}费)" }
+                        Thread.sleep(1000)
+                    }
+                } catch (_: InterruptedException) { Thread.currentThread().interrupt(); break }
+            }
+            val myBoard = me.playArea.cards.toList()
+            val rivalBoard = rival.playArea.cards.toList()
+            val taunts = rivalBoard.filter { it.isTaunt }
+            for (attacker in myBoard) {
+                if (attacker.isExhausted || attacker.isFrozen || attacker.atc <= 0) continue
+                val target = taunts.firstOrNull() ?: rivalBoard.firstOrNull() ?: rival.playArea.hero
+                try {
+                    if (target != null) {
+                        if (target === rival.playArea.hero) {
+                            attacker.action.attackHero()
+                        } else {
+                            attacker.action.attack(target)
+                        }
+                        log.info { "兜底攻击: ${attacker.entityName} -> ${target?.entityName}" }
+                        Thread.sleep(1000)
+                    }
+                } catch (_: InterruptedException) { Thread.currentThread().interrupt(); break }
+            }
+            val power = me.playArea.power
+            if (power != null && me.usableResource >= power.cost) {
+                try {
+                    power.action.power()
+                    log.info { "兜底使用英雄技能" }
+                    Thread.sleep(500)
+                } catch (_: InterruptedException) { Thread.currentThread().interrupt() }
+            }
+            log.info { "简易兜底完毕" }
+        } catch (e: Exception) {
+            log.error { "简易兜底异常: ${e.message ?: e.javaClass.simpleName}" }
         }
     }
 
