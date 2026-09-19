@@ -87,6 +87,14 @@
             <artifactId>hs-script-strategy-sdk</artifactId>
             <version>${strategy-sdk-version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.ini4j</groupId>
+            <artifactId>ini4j</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
